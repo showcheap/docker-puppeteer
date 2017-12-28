@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:8.9.3
 
 LABEL maintainer="yeongjinnn@gmail.com"
 
