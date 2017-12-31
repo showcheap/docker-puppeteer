@@ -1,4 +1,4 @@
-FROM node:8.9.3
+FROM node:latest
 
 LABEL maintainer="yeongjinnn@gmail.com"
 
