@@ -1,9 +1,10 @@
-FROM node:latest
+FROM node:8-slim
 
-LABEL maintainer="yeongjinnn@gmail.com"
+# See https://crbug.com/795759
+RUN apt-get update && apt-get install -yq libgconf-2-4
 
-# Install latest chrome package.
-# Note: this installs the necessary libs to make the bundled version of Chromium that Pupppeteer
+# Install latest chrome dev package.
+# Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
 # installs, work.
 RUN apt-get update && apt-get install -y wget --no-install-recommends \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
@@ -23,7 +24,7 @@ RUN apt-get update && apt-get install -y wget --no-install-recommends \
 # Install puppeteer so it's available in the container.
 RUN yarn add puppeteer
 
-# Add puppeteer user (pptruser).
+# Add pptr user.
 RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && mkdir -p /home/pptruser/Downloads \
     && chown -R pptruser:pptruser /home/pptruser \
